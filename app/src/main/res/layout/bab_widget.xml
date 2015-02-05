@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/ripple_material_dark">
+
+    <TextView
+        android:id="@+id/tv_main_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="불고기볶음밥&amp;계란후라이"
+        android:textColor="@color/primary_text_default_material_light"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_sub_menu_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_main_menu"
+        android:layout_alignLeft="@id/tv_main_menu"
+        android:layout_marginTop="8dp"
+        android:text="미소시루"/>
+
+    <TextView
+        android:id="@+id/tv_sub_menu_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_main_menu"
+        android:layout_toRightOf="@id/tv_sub_menu_1"
+        android:layout_alignTop="@id/tv_sub_menu_1"
+        android:layout_marginLeft="10dp"
+        android:text="생선까스&amp;타르타르소스"/>
+
+    <TextView
+        android:id="@+id/tv_sub_menu_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_sub_menu_1"
+        android:layout_alignLeft="@id/tv_sub_menu_1"
+        android:layout_marginTop="8dp"
+        android:text="(타르타르소스)"/>
+
+    <TextView
+        android:id="@+id/tv_sub_menu_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_sub_menu_1"
+        android:layout_toRightOf="@id/tv_sub_menu_3"
+        android:layout_alignTop="@id/tv_sub_menu_3"
+        android:layout_marginLeft="10dp"
+        android:text="김치볶음"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_sub_menu_4"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="2015-01-27"/>
+
+    <Button
+        android:id="@+id/btn_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:text="오늘"/>
+
+    <Button
+        android:id="@+id/btn_tommorow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_today"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="8dp"
+        android:text="내일"/>
+
+</RelativeLayout>
