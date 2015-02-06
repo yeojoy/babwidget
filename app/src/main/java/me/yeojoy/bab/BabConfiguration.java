@@ -1,9 +1,16 @@
 package me.yeojoy.bab;
 
+import android.appwidget.AppWidgetManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,45 +19,87 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.List;
 
 import me.yeojoy.bab.parsing.DataManager;
+import me.yeojoy.bab.widget.WidgetLayoutManager;
 
 
-public class BabConfiguration extends ActionBarActivity {
+public class BabConfiguration extends ActionBarActivity implements View.OnClickListener {
     
     private static final String TAG = BabConfiguration.class.getSimpleName();
-    
-    private TextView mTvResult;
-    
+    private int mAppWidgetId;
+    private Context mContext;
+
+    private TextView mTvDesc;
+
+    private Button mBtnFinish;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_config);
 
-        mTvResult = (TextView) findViewById(R.id.tv_result);
+        mContext = this;
         
-    }
+        mTvDesc = (TextView) findViewById(R.id.tv_desc);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        mBtnFinish = (Button) findViewById(R.id.btn_finish);
+        mBtnFinish.setOnClickListener(this);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        Intent intent = getIntent();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_dialog) {
-            return true;
+        // First, get the App Widget ID from the Intent that launched the Activity:
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            mAppWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            // AppWidgetManager.INVALID_APPWIDGET_ID is 0.
+            Log.i(TAG, "onCreate(), App Widget ID is " + mAppWidgetId);
         }
 
-        return super.onOptionsItemSelected(item);
+        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            finish();
+        }
+
+        if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            RemoteViews views = new RemoteViews(getPackageName(),
+                    R.layout.bab_widget);
+
+            DataManager.getInstance().updateMenu(this, true);
+            Log.i(TAG, "onCreate(), App Widget ID is valid.");
+        }
+
+        // Finally, create the return Intent, set it with the Activity
+        // result, and finish the Activity
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                mAppWidgetId);
+        resultIntent.putExtra("aaa", "hello world!");
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
-    
+
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_finish) {
+            // Update the App Widget with a RemoteViews layout by calling
+            // updateAppWidget();
+//            if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+//                RemoteViews views = new RemoteViews(getPackageName(),
+//                        R.layout.bab_widget);
+//
+//                DataManager.getInstance(this).updateMenu(true);
+//                Log.i(TAG, "onCreate(), App Widget ID is valid.");
+//            }
+//
+//            // Finally, create the return Intent, set it with the Activity
+//            // result, and finish the Activity
+//            Intent resultIntent = new Intent();
+//            resultIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+//                    mAppWidgetId);
+//            resultIntent.putExtra("aaa", "hello world!");
+//            setResult(RESULT_OK, resultIntent);
+//            finish();
+
+        }
+    }
 }

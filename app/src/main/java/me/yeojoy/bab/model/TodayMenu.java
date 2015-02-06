@@ -10,21 +10,13 @@ public class TodayMenu implements Parcelable {
     
     private String date;
     private String mainMenu;
+
     private String subMenuFirst;
     private String subMenuSecond;
     private String subMenuThird;
     private String subMenuFourth;
 
     public TodayMenu() { }
-    
-    public TodayMenu(Parcel in) {
-        date = in.readString();
-        mainMenu = in.readString();
-        subMenuFirst = in.readString();
-        subMenuSecond = in.readString();
-        subMenuThird = in.readString();
-        subMenuFourth = in.readString();
-    }
 
     public TodayMenu(String date, String mainMenu, String subMenuFirst, String subMenuSecond, String subMenuThird, String subMenuFourth) {
         this.date = date;
@@ -34,7 +26,28 @@ public class TodayMenu implements Parcelable {
         this.subMenuThird = subMenuThird;
         this.subMenuFourth = subMenuFourth;
     }
-    
+
+    public TodayMenu(Parcel in) {
+        date = in.readString();
+        mainMenu = in.readString();
+        subMenuFirst = in.readString();
+        subMenuSecond = in.readString();
+        subMenuThird = in.readString();
+        subMenuFourth = in.readString();
+    }
+
+    @Override
+    public String toString() {
+        return "TodayMenu{" +
+                "date='" + date + '\'' +
+                ", mainMenu='" + mainMenu + '\'' +
+                ", subMenuFirst='" + subMenuFirst + '\'' +
+                ", subMenuSecond='" + subMenuSecond + '\'' +
+                ", subMenuThird='" + subMenuThird + '\'' +
+                ", subMenuFourth='" + subMenuFourth + '\'' +
+                '}';
+    }
+
     @Override
     public int describeContents() {
         return 0;

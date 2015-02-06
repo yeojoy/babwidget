@@ -8,10 +8,15 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import me.yeojoy.bab.R;
+import me.yeojoy.bab.config.Consts;
+import me.yeojoy.bab.model.TodayMenu;
+import me.yeojoy.bab.utils.PreferenceUtil;
+
 /**
  * Created by yeojoy on 15. 2. 5..
  */
-public class WidgetLayoutManager {
+public class WidgetLayoutManager implements Consts {
     
     private static final String TAG = WidgetLayoutManager.class.getSimpleName();
     
@@ -24,37 +29,62 @@ public class WidgetLayoutManager {
             manager = AppWidgetManager.getInstance(context);
         }
 
-//        Log.d(TAG, "setWidgetViews(), COUNT is " + COUNT);
-//
-//        // PendingIntent의 requestCode가 같아지면 바로 가장 마지막 PendingIntent의
-//        // Intent로 강제 update되는 사태가 발생함.
-//        Intent plusIntent = new Intent(PLUS_ACTION);
-//        PendingIntent plusPIntent = PendingIntent.getBroadcast(context,
-//                PLUS_ID, plusIntent, PendingIntent.FLAG_ONE_SHOT);
-//
-//        Intent minusIntent = new Intent(MINUS_ACTION);
-//        PendingIntent minusPIntent = PendingIntent.getBroadcast(context,
-//                MINUS_ID, minusIntent, PendingIntent.FLAG_ONE_SHOT);
-//        views.setOnClickPendingIntent(R.id.btn_plus, plusPIntent);
-//        views.setOnClickPendingIntent(R.id.btn_minus, minusPIntent);
-//
-//        views.setImageViewResource(R.id.iv_cup, colorList[COUNT]);
-//
-//        if (COUNT == 0) {
-//            views.setTextViewText(R.id.tv_percentage, "0");
-//            views.setProgressBar(R.id.pb_percentage, 100, 0, false);
-//        } else {
-//            int percentage = (int) (COUNT * ONE_SHOT);
-//            views.setTextViewText(R.id.tv_percentage, String.valueOf(percentage));
-//            views.setProgressBar(R.id.pb_percentage, 100, percentage, false);
-//        }
-//        // Tell the AppWidgetManager to perform an update on the current app widget
-//        if (widgetId != -1) {
-//            manager.updateAppWidget(widgetId, views);
-//        } else {
-//            ComponentName myWidget = new ComponentName(context, WaterWidgetProvider.class);
-//            manager.updateAppWidget(myWidget, views);
-//        }
+        TodayMenu menus = PreferenceUtil.getInstance(context).getMenuInADay();
         
+        if (menus != null) {
+            setWidgetViews(context, views, manager, widgetId, menus);
+            return;
+        }
+        
+        bindEvents(context, views);
+        
+        if (widgetId != -1) {
+            manager.updateAppWidget(widgetId, views);
+        } else {
+            ComponentName myWidget = new ComponentName(context, BabHomeWidgetProvider.class);
+            manager.updateAppWidget(myWidget, views);
+        }
+
+    }
+
+    public static void setWidgetViews(Context context, RemoteViews views,
+                                      AppWidgetManager manager, int widgetId,
+                                      TodayMenu todayMenu) {
+
+        Log.i(TAG, "setWidgetViews()");
+        // View가 업데이트 됐음을 알린다.
+        if (manager == null) {
+            manager = AppWidgetManager.getInstance(context);
+        }
+
+        views.setTextViewText(R.id.tv_main_menu, todayMenu.getMainMenu());
+        views.setTextViewText(R.id.tv_sub_menu_1, todayMenu.getSubMenuFirst());
+        views.setTextViewText(R.id.tv_sub_menu_2, todayMenu.getSubMenuSecond());
+        views.setTextViewText(R.id.tv_sub_menu_3, todayMenu.getSubMenuThird());
+        views.setTextViewText(R.id.tv_sub_menu_4, todayMenu.getSubMenuFourth());
+        views.setTextViewText(R.id.tv_date, todayMenu.getDate());
+
+        bindEvents(context, views);
+        
+        if (widgetId != -1) {
+            manager.updateAppWidget(widgetId, views);
+        } else {
+            ComponentName myWidget = new ComponentName(context, BabHomeWidgetProvider.class);
+            manager.updateAppWidget(myWidget, views);
+        }
+    }
+    
+    private static void bindEvents(Context context, RemoteViews views) {
+        Intent todayMenu = new Intent(TODAY_MENU_ACTION);
+        PendingIntent todayPending = PendingIntent.getBroadcast(context,
+                0x00010001, todayMenu, PendingIntent.FLAG_ONE_SHOT);
+
+        Intent tomorrowMenu = new Intent(TOMORROW_MENU_ACTION);
+        PendingIntent tomorrowPending = PendingIntent.getBroadcast(context,
+                0x00010002, tomorrowMenu, PendingIntent.FLAG_ONE_SHOT);
+
+        views.setOnClickPendingIntent(R.id.btn_today, todayPending);
+        views.setOnClickPendingIntent(R.id.btn_tommorow, tomorrowPending);
+
     }
 }

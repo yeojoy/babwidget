@@ -18,14 +18,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BabConfiguration"></activity>
+        <activity android:name=".BabConfiguration">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
+        
         <receiver android:name=".widget.BabHomeWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="me.yeojoy.PLUS"/>
-                <action android:name="me.yeojoy.MINUS"/>
+                <action android:name="me.yeojoy.action.TODAY_MENU_ACTION"/>
+                <action android:name="me.yeojoy.action.TOMORROW_MENU_ACTION"/>
+                <action android:name="me.yeojoy.action.AFTER_WORK_MENU_ACTION"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
