@@ -18,9 +18,21 @@ android {
         applicationId "me.yeojoy.bab"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
+
+        project.archivesBaseName = 'bab_app'
+        applicationVariants.all { variant ->
+            // In Android Studio VER 1.0, Must add below lines.
+            variant.outputs.each { output ->
+                def file = output.outputFile
+                output.outputFile = new File(file.parent,
+                        file.name.replace(".apk", "-"+ defaultConfig.versionCode
+                                + "-v" + defaultConfig.versionName + ".apk"))
+            }
+        }
     }
+    
     buildTypes {
         release {
             minifyEnabled false

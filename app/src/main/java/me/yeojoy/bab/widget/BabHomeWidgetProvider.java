@@ -33,10 +33,6 @@ public class BabHomeWidgetProvider extends AppWidgetProvider implements Consts {
             DataManager.getInstance().updateMenu(context, true);
         } else if (action.equals(TOMORROW_MENU_ACTION)) {
             DataManager.getInstance().updateMenu(context, false);
-//            Toast.makeText(context, "준비 중 입니다.", Toast.LENGTH_SHORT).show();
-        } else if (action.equals(LAUNCH_APP_ACTION)) {
-            Intent i = new Intent(context, MainActivity.class);
-            context.startActivity(i);
         }
     }
 
