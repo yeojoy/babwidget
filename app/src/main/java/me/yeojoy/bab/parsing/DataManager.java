@@ -198,6 +198,8 @@ public class DataManager {
             url = new URL(String.format(URL_FORMAT, date, time));
             Log.d(TAG, url.toString());
 
+            // Source의 param으로 URL 외에 HttpURLConnection도 허용된다.
+            // 그래서 POST 방식은 이렇게 처리하면 됨.
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
