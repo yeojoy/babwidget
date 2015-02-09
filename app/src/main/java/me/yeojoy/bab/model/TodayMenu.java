@@ -3,6 +3,9 @@ package me.yeojoy.bab.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by yeojoy on 15. 2. 5..
  */
@@ -15,6 +18,25 @@ public class TodayMenu implements Parcelable {
     private String subMenuSecond;
     private String subMenuThird;
     private String subMenuFourth;
+    
+    private Set<String> otherMenus;
+    private Set<String> dieteticInfo;
+
+    public Set<String> getOtherMenus() {
+        return otherMenus;
+    }
+
+    public void setOtherMenus(Set<String> otherMenus) {
+        this.otherMenus = otherMenus;
+    }
+
+    public Set<String> getDieteticInfo() {
+        return dieteticInfo;
+    }
+
+    public void setDieteticInfo(Set<String> dieteticInfo) {
+        this.dieteticInfo = dieteticInfo;
+    }
 
     public TodayMenu() { }
 
@@ -25,6 +47,17 @@ public class TodayMenu implements Parcelable {
         this.subMenuSecond = subMenuSecond;
         this.subMenuThird = subMenuThird;
         this.subMenuFourth = subMenuFourth;
+    }
+
+    public TodayMenu(String date, String mainMenu, String subMenuFirst, String subMenuSecond, String subMenuThird, String subMenuFourth, Set<String> otherMenus, Set<String> dieteticInfo) {
+        this.date = date;
+        this.mainMenu = mainMenu;
+        this.subMenuFirst = subMenuFirst;
+        this.subMenuSecond = subMenuSecond;
+        this.subMenuThird = subMenuThird;
+        this.subMenuFourth = subMenuFourth;
+        this.otherMenus = otherMenus;
+        this.dieteticInfo = dieteticInfo;
     }
 
     public TodayMenu(Parcel in) {
@@ -45,6 +78,8 @@ public class TodayMenu implements Parcelable {
                 ", subMenuSecond='" + subMenuSecond + '\'' +
                 ", subMenuThird='" + subMenuThird + '\'' +
                 ", subMenuFourth='" + subMenuFourth + '\'' +
+                ", otherMenus=" + otherMenus +
+                ", dieteticInfo=" + dieteticInfo +
                 '}';
     }
 

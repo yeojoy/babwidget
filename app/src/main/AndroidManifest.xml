@@ -31,7 +31,6 @@
             <intent-filter>
                 <action android:name="me.yeojoy.action.TODAY_MENU_ACTION"/>
                 <action android:name="me.yeojoy.action.TOMORROW_MENU_ACTION"/>
-                <action android:name="me.yeojoy.action.AFTER_WORK_MENU_ACTION"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

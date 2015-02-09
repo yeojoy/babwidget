@@ -19,7 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import me.yeojoy.bab.R;
 import me.yeojoy.bab.model.TodayMenu;
@@ -97,9 +100,9 @@ public class DataManager {
             
         }
         
-        TodayMenu menu = PreferenceUtil.getInstance(context).getMenuInADay();
+        TodayMenu menu = PreferenceUtil.getInstance(context).getMenuInADay(date);
         
-        if (PreferenceUtil.getInstance(context).getMenuInADay() != null) {
+        if (menu != null) {
             if (mListener != null)
                 mListener.onFinishParsingData(menu);
 
@@ -120,6 +123,8 @@ public class DataManager {
         
         private String date;
 
+        private List<String> menusLunch;
+        
         public ParserAsyncTask(Context context, String date) {
             mContext = context;
             this.date = date;
@@ -127,23 +132,34 @@ public class DataManager {
         
         @Override
         protected TodayMenu doInBackground(Void... params) {
-            List<String> menu1 = getCafeteriaMenu(date, LUNCH);
+            menusLunch = getCafeteriaMenu(date, LUNCH);
 
             TodayMenu todayMenu = new TodayMenu();
             
-            if (menu1.size() > 0) {
+            if (menusLunch.size() > 0) {
                 Log.d(TAG, "===========================================");
-                for (String s : menu1) {
+                Set<String> otherMenus = new HashSet<String>();
+                Set<String> dieteticInfo = new HashSet<String>();
+                int index = 0;
+                for (String s : menusLunch) {
                     Log.d(TAG, s);
+                    if (s.startsWith("menu_") && index > 4) {
+                        otherMenus.add(s.substring(5));
+                    } else if (s.startsWith("info_")) {
+                        dieteticInfo.add(s.substring(5));
+                    }
+                    index++;
                 }
                 Log.d(TAG, "===========================================");
                 
                 todayMenu.setDate(date);
-                todayMenu.setMainMenu(menu1.get(0).substring(5));
-                todayMenu.setSubMenuFirst(menu1.get(1).substring(5));
-                todayMenu.setSubMenuSecond(menu1.get(2).substring(5));
-                todayMenu.setSubMenuThird(menu1.get(3).substring(5));
-                todayMenu.setSubMenuFourth(menu1.get(4).substring(5));
+                todayMenu.setMainMenu(menusLunch.get(0).substring(5));
+                todayMenu.setSubMenuFirst(menusLunch.get(1).substring(5));
+                todayMenu.setSubMenuSecond(menusLunch.get(2).substring(5));
+                todayMenu.setSubMenuThird(menusLunch.get(3).substring(5));
+                todayMenu.setSubMenuFourth(menusLunch.get(4).substring(5));
+                todayMenu.setOtherMenus(otherMenus);
+                todayMenu.setDieteticInfo(dieteticInfo);
 
             }
 
@@ -157,9 +173,10 @@ public class DataManager {
             super.onPostExecute(menu);
 
             if (menu == null) return;
-            if (mListener != null)
+            if (mListener != null) {
                 mListener.onFinishParsingData(menu);
-            
+            }
+
             RemoteViews views = new RemoteViews(mContext.getPackageName(),
                     R.layout.bab_widget); 
             

@@ -4,6 +4,16 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
+    signingConfigs {
+        release {
+            storeFile file(JEI_RELEASE_STORE)
+            keyAlias JEI_RELEASE_ALIAS
+            keyPassword JEI_RELEASE_ALIAS_PASSWORD
+            storePassword JEI_RELEASE_STORE_PASSWORD
+
+        }
+    }
+    
     defaultConfig {
         applicationId "me.yeojoy.bab"
         minSdkVersion 14
@@ -14,6 +24,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

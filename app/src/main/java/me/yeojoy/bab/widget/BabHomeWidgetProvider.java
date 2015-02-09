@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import me.yeojoy.bab.R;
 import me.yeojoy.bab.config.Consts;
@@ -30,8 +31,10 @@ public class BabHomeWidgetProvider extends AppWidgetProvider implements Consts {
         if (action.equals(TODAY_MENU_ACTION)) {
             DataManager.getInstance().updateMenu(context, true);
         } else if (action.equals(TOMORROW_MENU_ACTION)) {
-            DataManager.getInstance().updateMenu(context, false);
+//            DataManager.getInstance().updateMenu(context, false);
+            Toast.makeText(context, "준비 중 입니다.", Toast.LENGTH_SHORT).show();
         }
+        
     }
 
     @Override

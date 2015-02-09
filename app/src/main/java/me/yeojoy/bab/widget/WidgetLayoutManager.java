@@ -11,6 +11,7 @@ import android.widget.RemoteViews;
 import me.yeojoy.bab.R;
 import me.yeojoy.bab.config.Consts;
 import me.yeojoy.bab.model.TodayMenu;
+import me.yeojoy.bab.utils.DateUtil;
 import me.yeojoy.bab.utils.PreferenceUtil;
 
 /**
@@ -29,7 +30,7 @@ public class WidgetLayoutManager implements Consts {
             manager = AppWidgetManager.getInstance(context);
         }
 
-        TodayMenu menus = PreferenceUtil.getInstance(context).getMenuInADay();
+        TodayMenu menus = PreferenceUtil.getInstance(context).getMenuInADay(DateUtil.getTodayDate());
         
         if (menus != null) {
             setWidgetViews(context, views, manager, widgetId, menus);
