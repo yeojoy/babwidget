@@ -31,9 +31,6 @@ public class MainActivity extends ActionBarActivity
         manager.setOnFinishParsingListener(this);
         manager.updateMenu(this, true);
         
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("");
-        actionBar.setIcon(R.drawable.bab_icon);
     }
     
     @Override
