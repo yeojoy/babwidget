@@ -12,14 +12,22 @@
     <TextView
         android:id="@+id/tv_desc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="left|top"
         android:textSize="20dp"
         android:textColor="@color/primary_text_default_material_light"
         android:text="재능교육 식당 메뉴를 알려주는 홈위젯입니다."/>
 
+    <CheckBox
+        android:id="@+id/cb_has_light_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_finish"
+        android:layout_marginTop="20dp"
+        android:text="홈화면 배경이 밝다면 체크해 주세요."/>
+    
     <Button
-        android:id="@+id/btn_finish"
+        android:id="@id/btn_finish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -25,6 +25,8 @@ public class PreferenceUtil {
     public static final String KEY_AW_SUB_THIRD     = "aw_sub_menu_third";
     public static final String KEY_AW_SUB_FOURTH    = "aw_sub_menu_fourth";
 
+    public static final String KEY_HAS_LIGH_BACKGROUND = "ligth_back";
+    
     private SharedPreferences mSharedPreferences;
     
     private static PreferenceUtil mUtil;
@@ -73,5 +75,15 @@ public class PreferenceUtil {
                 mSharedPreferences.getString(KEY_SUB_FOURTH, null),
                 mSharedPreferences.getStringSet(KEY_ALL_MENUS, null),
                 mSharedPreferences.getStringSet(KEY_DIETETIC_INFO, null));
+    }
+    
+    public void putBoolean(String key, boolean value) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+    
+    public boolean getBoolean(String key) {
+        return mSharedPreferences.getBoolean(key, false);
     }
 }

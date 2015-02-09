@@ -2,11 +2,9 @@ package me.yeojoy.bab.parsing;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.HTMLElementName;
@@ -16,17 +14,12 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.net.ssl.HttpsURLConnection;
-
+import me.yeojoy.bab.BabApplication;
 import me.yeojoy.bab.R;
 import me.yeojoy.bab.model.TodayMenu;
 import me.yeojoy.bab.utils.DateUtil;
@@ -96,9 +89,11 @@ public class DataManager {
             case TODAY:
             default:
                 date = DateUtil.getTodayDate();
+                BabApplication.isToday = true;
                 break;
             case TOMORROW:
                 date = DateUtil.getTomorrowDate();
+                BabApplication.isToday = false;
                 break;
             
         }
@@ -109,8 +104,14 @@ public class DataManager {
             if (mListener != null)
                 mListener.onFinishParsingData(menu);
 
-            RemoteViews views = new RemoteViews(context.getPackageName(),
-                    R.layout.bab_widget);
+            RemoteViews views;
+            if (BabApplication.hasLightBackground) {
+                views = new RemoteViews(context.getPackageName(),
+                        R.layout.bab_widget_light);
+            } else {
+                views = new RemoteViews(context.getPackageName(),
+                        R.layout.bab_widget_dark);
+            }
 
             WidgetLayoutManager.setWidgetViews(context, views, null, -1, menu);
             
@@ -180,8 +181,14 @@ public class DataManager {
                 mListener.onFinishParsingData(menu);
             }
 
-            RemoteViews views = new RemoteViews(mContext.getPackageName(),
-                    R.layout.bab_widget); 
+            RemoteViews views;
+            if (BabApplication.hasLightBackground) {
+                views = new RemoteViews(mContext.getPackageName(),
+                        R.layout.bab_widget_light);
+            } else {
+                views = new RemoteViews(mContext.getPackageName(),
+                        R.layout.bab_widget_dark);
+            }
             
             WidgetLayoutManager.setWidgetViews(mContext, views, null, -1, menu);
         }
