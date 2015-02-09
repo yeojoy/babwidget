@@ -84,8 +84,13 @@ public class WidgetLayoutManager implements Consts {
         PendingIntent tomorrowPending = PendingIntent.getBroadcast(context,
                 0x00010002, tomorrowMenu, PendingIntent.FLAG_ONE_SHOT);
 
+        Intent launchApp = new Intent(LAUNCH_APP_ACTION);
+        PendingIntent launchAppPending = PendingIntent.getBroadcast(context,
+                0x00020001, launchApp, PendingIntent.FLAG_ONE_SHOT);
+        
         views.setOnClickPendingIntent(R.id.btn_today, todayPending);
         views.setOnClickPendingIntent(R.id.btn_tommorow, tomorrowPending);
+        views.setOnClickPendingIntent(R.id.iv_icon, launchAppPending);
 
     }
 }

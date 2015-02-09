@@ -6,12 +6,13 @@
     
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/bab_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +31,7 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="me.yeojoy.action.TODAY_MENU_ACTION"/>
+                <action android:name="me.yeojoy.action.LAUNCH_APP"/>
                 <action android:name="me.yeojoy.action.TOMORROW_MENU_ACTION"/>
             </intent-filter>
             <meta-data

@@ -13,6 +13,7 @@ import net.htmlparser.jericho.HTMLElementName;
 import net.htmlparser.jericho.Source;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,8 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import me.yeojoy.bab.R;
 import me.yeojoy.bab.model.TodayMenu;
@@ -194,7 +197,15 @@ public class DataManager {
         try {
             url = new URL(String.format(URL_FORMAT, date, time));
             Log.d(TAG, url.toString());
-            source = new Source(url);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            source = new Source(conn);
             List<Element> list = source.getAllElements(HTMLElementName.TD);
             String str = null;
 

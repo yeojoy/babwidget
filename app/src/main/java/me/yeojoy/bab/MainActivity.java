@@ -1,6 +1,8 @@
 package me.yeojoy.bab;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 
@@ -29,6 +31,9 @@ public class MainActivity extends ActionBarActivity
         manager.setOnFinishParsingListener(this);
         manager.updateMenu(this, true);
         
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("");
+        actionBar.setIcon(R.drawable.bab_icon);
     }
     
     @Override
@@ -67,5 +72,14 @@ public class MainActivity extends ActionBarActivity
         } else {
             mTvResult.setText("등록된 메뉴가 없습니다.");
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        
+        DataManager manager = DataManager.getInstance();
+        manager.setOnFinishParsingListener(this);
+        manager.updateMenu(this, true);
     }
 }

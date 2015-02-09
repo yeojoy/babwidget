@@ -5,6 +5,7 @@ public interface Consts {
 
     public static final String TODAY_MENU_ACTION  = "me.yeojoy.action.TODAY_MENU_ACTION";
     public static final String TOMORROW_MENU_ACTION = "me.yeojoy.action.TOMORROW_MENU_ACTION";
+    public static final String LAUNCH_APP_ACTION  = "me.yeojoy.action.LAUNCH_APP";
     public static final String AFTER_WORK_MENU_ACTION = "me.yeojoy.action.AFTER_WORK_MENU_ACTION";
 
     public static final int TODAY_MENU     = 0x000010;
