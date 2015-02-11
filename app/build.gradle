@@ -18,8 +18,8 @@ android {
         applicationId "me.yeojoy.bab"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
 
         project.archivesBaseName = 'bab_app'
         applicationVariants.all { variant ->

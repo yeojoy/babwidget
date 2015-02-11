@@ -43,17 +43,7 @@ public class BabHomeWidgetProvider extends AppWidgetProvider implements Consts {
         for (int i = 0; i < widgetCount; i++) {
             Log.d(TAG, "onUpdate(), AppWidget ID : " + appWidgetIds[i]);
 
-            RemoteViews views;
-            
-            if (BabApplication.hasLightBackground)
-                views = new RemoteViews(context.getPackageName(),
-                        R.layout.bab_widget_light);
-            else
-                views = new RemoteViews(context.getPackageName(),
-                        R.layout.bab_widget_dark);
-            
-            WidgetLayoutManager.setWidgetViews(context, views, appWidgetManager,
-                    appWidgetIds[i]);
+            DataManager.getInstance().updateMenu(context, true);
         }
     }
 

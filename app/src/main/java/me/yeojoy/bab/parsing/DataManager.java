@@ -104,16 +104,7 @@ public class DataManager {
             if (mListener != null)
                 mListener.onFinishParsingData(menu);
 
-            RemoteViews views;
-            if (BabApplication.hasLightBackground) {
-                views = new RemoteViews(context.getPackageName(),
-                        R.layout.bab_widget_light);
-            } else {
-                views = new RemoteViews(context.getPackageName(),
-                        R.layout.bab_widget_dark);
-            }
-
-            WidgetLayoutManager.setWidgetViews(context, views, null, -1, menu);
+            updateWidgetViews(context, menu);
             
             return;
         }
@@ -181,17 +172,22 @@ public class DataManager {
                 mListener.onFinishParsingData(menu);
             }
 
-            RemoteViews views;
-            if (BabApplication.hasLightBackground) {
-                views = new RemoteViews(mContext.getPackageName(),
-                        R.layout.bab_widget_light);
-            } else {
-                views = new RemoteViews(mContext.getPackageName(),
-                        R.layout.bab_widget_dark);
-            }
-            
-            WidgetLayoutManager.setWidgetViews(mContext, views, null, -1, menu);
+            updateWidgetViews(mContext, menu);
         }
+    }
+    
+    private void updateWidgetViews(Context context, TodayMenu menu) {
+        RemoteViews views;
+        if (BabApplication.hasLightBackground) {
+            views = new RemoteViews(context.getPackageName(),
+                    R.layout.bab_widget_light);
+        } else {
+            views = new RemoteViews(context.getPackageName(),
+                    R.layout.bab_widget_dark);
+        }
+
+        WidgetLayoutManager.setWidgetViews(context, views, null, -1, menu);
+        
     }
     
     private List<String> getCafeteriaMenu(String date, int time) {
