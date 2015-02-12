@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="72dp" >
+    android:layout_height="72dp">
 
     <ImageView
         android:id="@+id/iv_icon"
@@ -56,4 +56,15 @@
         android:textSize="10dp"
         android:textColor="@color/widget_text_color_dark"
         android:background="@drawable/b_btn_dark"/>
+
+    <ProgressBar
+        style="@android:style/Widget.Holo.Light.ProgressBar.Small"
+        android:id="@+id/pb_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_today"
+        android:layout_alignRight="@id/btn_today"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
 </RelativeLayout>

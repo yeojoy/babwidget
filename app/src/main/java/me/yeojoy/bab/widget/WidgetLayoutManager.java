@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import me.yeojoy.bab.BabApplication;
@@ -35,6 +36,10 @@ public class WidgetLayoutManager implements Consts {
             manager = AppWidgetManager.getInstance(context);
         }
 
+        if (views == null) {
+            views = getRemoteViews(context);
+        }
+        
         TodayMenu menus = PreferenceUtil.getInstance(context).getMenuInADay(DateUtil.getTodayDate());
         
         if (menus != null) {
@@ -43,7 +48,8 @@ public class WidgetLayoutManager implements Consts {
         }
 
         views.setTextViewText(R.id.tv_date, DateUtil.getTodayDate());
-        
+        views.setViewVisibility(R.id.pb_progress, View.GONE);
+
         bindEvents(context, views);
         
         if (widgetId != -1) {
@@ -64,13 +70,17 @@ public class WidgetLayoutManager implements Consts {
         if (manager == null) {
             manager = AppWidgetManager.getInstance(context);
         }
+        
+        if (views == null) {
+            views = getRemoteViews(context);
+        }
 
         StringBuilder sb = new StringBuilder();
         
         if ((todayMenu.getSubMenuFirst().length() 
                 + todayMenu.getSubMenuSecond().length() 
                 + todayMenu.getSubMenuThird().length() 
-                + todayMenu.getSubMenuFourth().length()) < 16) {
+                + todayMenu.getSubMenuFourth().length()) < 19) {
             sb.append(todayMenu.getSubMenuFirst()).append("  ");
             sb.append(todayMenu.getSubMenuSecond()).append("  ");
             sb.append(todayMenu.getSubMenuThird()).append("  ");
@@ -84,7 +94,9 @@ public class WidgetLayoutManager implements Consts {
         views.setTextViewText(R.id.tv_main_menu, todayMenu.getMainMenu());
         views.setTextViewText(R.id.tv_sub_menu, sb);
         views.setTextViewText(R.id.tv_date, todayMenu.getDate());
-
+        
+        views.setViewVisibility(R.id.pb_progress, View.GONE);
+        
         bindEvents(context, views);
         
         if (widgetId != -1) {
@@ -94,6 +106,56 @@ public class WidgetLayoutManager implements Consts {
             manager.updateAppWidget(myWidget, views);
         }
     }
+    
+    public static void updateWidgetViewForLoading(Context context, RemoteViews views,
+                                                  AppWidgetManager manager,
+                                                  int widgetId, TodayMenu menu) {
+        Log.i(TAG, "updateWidgetViewForLoading()");
+        // View가 업데이트 됐음을 알린다.
+        if (manager == null) {
+            manager = AppWidgetManager.getInstance(context);
+        }
+
+        if (views == null) {
+            views = getRemoteViews(context);
+        }
+
+        TodayMenu todayMenu = PreferenceUtil.getInstance(context).getMenuInADay(DateUtil.getTodayDate());
+
+        if (todayMenu != null) {
+            StringBuilder sb = new StringBuilder();
+
+            if ((todayMenu.getSubMenuFirst().length()
+                    + todayMenu.getSubMenuSecond().length()
+                    + todayMenu.getSubMenuThird().length()
+                    + todayMenu.getSubMenuFourth().length()) < 19) {
+                sb.append(todayMenu.getSubMenuFirst()).append("  ");
+                sb.append(todayMenu.getSubMenuSecond()).append("  ");
+                sb.append(todayMenu.getSubMenuThird()).append("  ");
+                sb.append(todayMenu.getSubMenuFourth());
+            } else {
+                sb.append(todayMenu.getSubMenuFirst()).append("  ");
+                sb.append(todayMenu.getSubMenuSecond()).append("  ");
+                sb.append(todayMenu.getSubMenuThird());
+            }
+
+            views.setTextViewText(R.id.tv_main_menu, todayMenu.getMainMenu());
+            views.setTextViewText(R.id.tv_sub_menu, sb);
+            views.setTextViewText(R.id.tv_date, todayMenu.getDate());
+        }
+
+        views.setViewVisibility(R.id.pb_progress, View.VISIBLE);
+        
+        bindEvents(context, views);
+
+        if (widgetId != -1) {
+            manager.updateAppWidget(widgetId, views);
+        } else {
+            ComponentName myWidget = new ComponentName(context, BabHomeWidgetProvider.class);
+            manager.updateAppWidget(myWidget, views);
+        }
+    }
+
     
     private static void bindEvents(Context context, RemoteViews views) {
         
@@ -116,5 +178,18 @@ public class WidgetLayoutManager implements Consts {
                 0x00020001, launchApp, PendingIntent.FLAG_ONE_SHOT);
 
         views.setOnClickPendingIntent(R.id.iv_icon, launchAppPending);
+    }
+    
+    public static RemoteViews getRemoteViews(Context context) {
+        RemoteViews views;
+        if (BabApplication.hasLightBackground) {
+            views = new RemoteViews(context.getPackageName(),
+                    R.layout.bab_widget_light);
+        } else {
+            views = new RemoteViews(context.getPackageName(),
+                    R.layout.bab_widget_dark);
+        }
+        
+        return views;
     }
 }

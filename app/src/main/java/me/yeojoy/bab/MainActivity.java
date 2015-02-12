@@ -3,7 +3,6 @@ package me.yeojoy.bab;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.List;
 import java.util.Set;
 
 import me.yeojoy.bab.model.TodayMenu;
@@ -46,11 +44,15 @@ public class MainActivity extends ActionBarActivity
         mTvResult.setText("");
         if (menus != null) {
 
-            int d = (int) getResources().getDisplayMetrics().density;
+            float d = getResources().getDisplayMetrics().density;
             SpannableStringBuilder ssb = new SpannableStringBuilder();
             SpannableString ss = new SpannableString(menus.getDate());
             
-            ss.setSpan(new AbsoluteSizeSpan(20 * d), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            int dateSize = (int) (20 * d);
+            int titleSize = (int) (26 * d);
+            int menuSize = (int) (16 * d);
+
+            ss.setSpan(new AbsoluteSizeSpan(dateSize), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             ssb.append(ss).append("\n\n");
             
             
@@ -58,16 +60,16 @@ public class MainActivity extends ActionBarActivity
             
             if (otherMenus != null) {
                 ss = new SpannableString("오늘의 점심 메뉴");
-                ss.setSpan(new AbsoluteSizeSpan(26 * d), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                ss.setSpan(new AbsoluteSizeSpan(titleSize), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 ss.setSpan(new StyleSpan(Typeface.BOLD), 0, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ssb.append(ss).append("\n");
                 
                 ss = new SpannableString(menus.getMainMenu());
-                ss.setSpan(new AbsoluteSizeSpan(20 * d), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                ss.setSpan(new AbsoluteSizeSpan(dateSize), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 ssb.append(ss).append("\n");
 
                 ss = new SpannableString(menus.getSubMenuFirst());
-                ss.setSpan(new AbsoluteSizeSpan(16 * d), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                ss.setSpan(new AbsoluteSizeSpan(menuSize), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 ssb.append(ss).append("\n");
                 ssb.append(menus.getSubMenuSecond()).append("\n");
                 ssb.append(menus.getSubMenuThird()).append("\n");
@@ -81,12 +83,12 @@ public class MainActivity extends ActionBarActivity
             Set<String> dieteticInfo = menus.getDieteticInfo();
             if (dieteticInfo != null) {
                 ss = new SpannableString("영양정보");
-                ss.setSpan(new AbsoluteSizeSpan(26 * d), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                ss.setSpan(new AbsoluteSizeSpan(titleSize), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 ss.setSpan(new StyleSpan(Typeface.BOLD), 0, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ssb.append("\n").append(ss);
 
                 ss = new SpannableString("");
-                ss.setSpan(new AbsoluteSizeSpan(16 * d), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                ss.setSpan(new AbsoluteSizeSpan(menuSize), 0, ss.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 ssb.append(ss).append("\n");
                 
                 for (String s : dieteticInfo) {

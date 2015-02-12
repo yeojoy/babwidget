@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.HTMLElementName;
@@ -20,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 import me.yeojoy.bab.BabApplication;
-import me.yeojoy.bab.R;
 import me.yeojoy.bab.model.TodayMenu;
 import me.yeojoy.bab.utils.DateUtil;
 import me.yeojoy.bab.utils.PreferenceUtil;
@@ -177,19 +175,12 @@ public class DataManager {
     }
     
     private void updateWidgetViews(Context context, TodayMenu menu) {
-        RemoteViews views;
-        if (BabApplication.hasLightBackground) {
-            views = new RemoteViews(context.getPackageName(),
-                    R.layout.bab_widget_light);
-        } else {
-            views = new RemoteViews(context.getPackageName(),
-                    R.layout.bab_widget_dark);
-        }
 
-        WidgetLayoutManager.setWidgetViews(context, views, null, -1, menu);
-        
+
+        WidgetLayoutManager.setWidgetViews(context, 
+                WidgetLayoutManager.getRemoteViews(context), null, -1, menu);
     }
-    
+
     private List<String> getCafeteriaMenu(String date, int time) {
         URL url;
         Source source;

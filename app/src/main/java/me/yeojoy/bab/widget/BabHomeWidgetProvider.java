@@ -5,10 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.RemoteViews;
 
-import me.yeojoy.bab.BabApplication;
-import me.yeojoy.bab.R;
 import me.yeojoy.bab.config.Consts;
 import me.yeojoy.bab.parsing.DataManager;
 
@@ -30,8 +27,10 @@ public class BabHomeWidgetProvider extends AppWidgetProvider implements Consts {
 
         if (action.equals(TODAY_MENU_ACTION)) {
             DataManager.getInstance().updateMenu(context, true);
+            WidgetLayoutManager.updateWidgetViewForLoading(context, null, null, -1, null);
         } else if (action.equals(TOMORROW_MENU_ACTION)) {
             DataManager.getInstance().updateMenu(context, false);
+            WidgetLayoutManager.updateWidgetViewForLoading(context, null, null, -1, null);
         }
     }
 
