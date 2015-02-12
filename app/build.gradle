@@ -21,7 +21,7 @@ android {
         versionCode 7
         versionName "1.0.6"
 
-        project.archivesBaseName = 'bab_app'
+        project.archivesBaseName = 'bab-app'
         applicationVariants.all { variant ->
             // In Android Studio VER 1.0, Must add below lines.
             variant.outputs.each { output ->
