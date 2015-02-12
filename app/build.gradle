@@ -18,8 +18,8 @@ android {
         applicationId "me.yeojoy.bab"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 6
-        versionName "1.0.5"
+        versionCode 7
+        versionName "1.0.6"
 
         project.archivesBaseName = 'bab_app'
         applicationVariants.all { variant ->
@@ -27,8 +27,8 @@ android {
             variant.outputs.each { output ->
                 def file = output.outputFile
                 output.outputFile = new File(file.parent,
-                        file.name.replace(".apk", "_" + defaultConfig.versionCode
-                                + "_v" + defaultConfig.versionName + ".apk"))
+                        file.name.replace(".apk", "-" + defaultConfig.versionCode
+                                + "-v" + defaultConfig.versionName + ".apk"))
             }
         }
     }
