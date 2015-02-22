@@ -27,15 +27,18 @@ public class BabHomeWidgetProvider extends AppWidgetProvider implements Consts {
 
         if (action.equals(TODAY_MENU_ACTION)) {
             DataManager.getInstance().updateMenu(context, true);
-            WidgetLayoutManager.updateWidgetViewForLoading(context, null, null, -1, null);
+            WidgetLayoutManager.updateWidgetViewForLoading(context, null, null,
+                    -1, null);
         } else if (action.equals(TOMORROW_MENU_ACTION)) {
             DataManager.getInstance().updateMenu(context, false);
-            WidgetLayoutManager.updateWidgetViewForLoading(context, null, null, -1, null);
+            WidgetLayoutManager.updateWidgetViewForLoading(context, null, null,
+                    -1, null);
         }
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager,
+                         int[] appWidgetIds) {
         Log.i(TAG, "onUpdate()");
         final int widgetCount = appWidgetIds.length;
 
@@ -45,5 +48,4 @@ public class BabHomeWidgetProvider extends AppWidgetProvider implements Consts {
             DataManager.getInstance().updateMenu(context, true);
         }
     }
-
 }
