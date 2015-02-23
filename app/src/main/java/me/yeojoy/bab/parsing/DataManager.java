@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -79,7 +80,7 @@ public class DataManager {
     }
     
     private void getMenuData(Context context, Time time) {
-        Log.d(TAG, "getMenuData()");
+        Log.i(TAG, "getMenuData()");
 
         String date;
         
@@ -182,6 +183,7 @@ public class DataManager {
     }
 
     private List<String> getCafeteriaMenu(String date, int time) {
+        Log.i(TAG, "getCafeteriaMenu()");
         URL url;
         Source source;
         List<String> menu = new ArrayList<String>();
@@ -222,8 +224,10 @@ public class DataManager {
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.d(TAG, "getCafeteriaMenu(), MalformedURLException");
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d(TAG, "getCafeteriaMenu(), IOException");
         }
         
         return menu;

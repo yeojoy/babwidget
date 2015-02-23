@@ -76,25 +76,29 @@ public class WidgetLayoutManager implements Consts {
         }
 
         StringBuilder sb = new StringBuilder();
-        
-        if ((todayMenu.getSubMenuFirst().length() 
-                + todayMenu.getSubMenuSecond().length() 
-                + todayMenu.getSubMenuThird().length() 
-                + todayMenu.getSubMenuFourth().length()) < 19) {
-            sb.append(todayMenu.getSubMenuFirst()).append("  ");
-            sb.append(todayMenu.getSubMenuSecond()).append("  ");
-            sb.append(todayMenu.getSubMenuThird()).append("  ");
-            sb.append(todayMenu.getSubMenuFourth());
+        if (todayMenu != null && todayMenu.getMainMenu() != null) {
+            if ((todayMenu.getSubMenuFirst().length()
+                    + todayMenu.getSubMenuSecond().length()
+                    + todayMenu.getSubMenuThird().length()
+                    + todayMenu.getSubMenuFourth().length()) < 19) {
+                sb.append(todayMenu.getSubMenuFirst()).append("  ");
+                sb.append(todayMenu.getSubMenuSecond()).append("  ");
+                sb.append(todayMenu.getSubMenuThird()).append("  ");
+                sb.append(todayMenu.getSubMenuFourth());
+            } else {
+                sb.append(todayMenu.getSubMenuFirst()).append("  ");
+                sb.append(todayMenu.getSubMenuSecond()).append("  ");
+                sb.append(todayMenu.getSubMenuThird());
+            }
+
+            views.setTextViewText(R.id.tv_main_menu, todayMenu.getMainMenu());
+            views.setTextViewText(R.id.tv_sub_menu, sb);
+            views.setTextViewText(R.id.tv_date, todayMenu.getDate());
         } else {
-            sb.append(todayMenu.getSubMenuFirst()).append("  ");
-            sb.append(todayMenu.getSubMenuSecond()).append("  ");
-            sb.append(todayMenu.getSubMenuThird());
+            views.setTextViewText(R.id.tv_main_menu,
+                    "메뉴 정보가 없습니다. 공휴일이거나 휴가기간 입니다.");
         }
 
-        views.setTextViewText(R.id.tv_main_menu, todayMenu.getMainMenu());
-        views.setTextViewText(R.id.tv_sub_menu, sb);
-        views.setTextViewText(R.id.tv_date, todayMenu.getDate());
-        
         views.setViewVisibility(R.id.pb_progress, View.GONE);
         
         bindEvents(context, views);
@@ -122,7 +126,7 @@ public class WidgetLayoutManager implements Consts {
 
         TodayMenu todayMenu = PreferenceUtil.getInstance(context).getMenuInADay(DateUtil.getTodayDate());
 
-        if (todayMenu != null) {
+        if (todayMenu != null && todayMenu.getMainMenu() != null) {
             StringBuilder sb = new StringBuilder();
 
             if ((todayMenu.getSubMenuFirst().length()
@@ -142,6 +146,9 @@ public class WidgetLayoutManager implements Consts {
             views.setTextViewText(R.id.tv_main_menu, todayMenu.getMainMenu());
             views.setTextViewText(R.id.tv_sub_menu, sb);
             views.setTextViewText(R.id.tv_date, todayMenu.getDate());
+        } else {
+            views.setTextViewText(R.id.tv_main_menu, 
+                    "메뉴 정보가 없습니다. 공휴일이거나 휴가기간 입니다.");
         }
 
         views.setViewVisibility(R.id.pb_progress, View.VISIBLE);

@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onFinishParsingData(TodayMenu menus) {
         mTvResult.setText("");
-        if (menus != null) {
+        if (menus != null && menus.getMainMenu() != null) {
 
             float d = getResources().getDisplayMetrics().density;
             SpannableStringBuilder ssb = new SpannableStringBuilder();
