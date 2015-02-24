@@ -110,7 +110,17 @@ public class WidgetLayoutManager implements Consts {
             manager.updateAppWidget(myWidget, views);
         }
     }
-    
+
+    /**
+     * 오늘 메뉴, 내일 메뉴를 가져올 때 Progress Bar를 보여주기 위해
+     * 호출 함.
+     * DataManager가 데이터 통신을 하고
+     * @param context
+     * @param views
+     * @param manager
+     * @param widgetId
+     * @param menu
+     */
     public static void updateWidgetViewForLoading(Context context, RemoteViews views,
                                                   AppWidgetManager manager,
                                                   int widgetId, TodayMenu menu) {
@@ -146,9 +156,6 @@ public class WidgetLayoutManager implements Consts {
             views.setTextViewText(R.id.tv_main_menu, todayMenu.getMainMenu());
             views.setTextViewText(R.id.tv_sub_menu, sb);
             views.setTextViewText(R.id.tv_date, todayMenu.getDate());
-        } else {
-            views.setTextViewText(R.id.tv_main_menu, 
-                    "메뉴 정보가 없습니다. 공휴일이거나 휴가기간 입니다.");
         }
 
         views.setViewVisibility(R.id.pb_progress, View.VISIBLE);
