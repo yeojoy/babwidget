@@ -11,13 +11,13 @@ public class BabApplication extends Application {
 
     public static boolean isToday = true;
     
-    public static boolean hasLightBackground = false;
+    public static boolean mHasLightBackground = false;
     
     @Override
     public void onCreate() {
         super.onCreate();
 
-        hasLightBackground = PreferenceUtil.getInstance(this)
+        mHasLightBackground = PreferenceUtil.getInstance(this)
                 .getBoolean(PreferenceUtil.KEY_HAS_LIGH_BACKGROUND);
     }
 }

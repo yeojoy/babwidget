@@ -196,7 +196,7 @@ public class WidgetLayoutManager implements Consts {
     
     public static RemoteViews getRemoteViews(Context context) {
         RemoteViews views;
-        if (BabApplication.hasLightBackground) {
+        if (BabApplication.mHasLightBackground) {
             views = new RemoteViews(context.getPackageName(),
                     R.layout.bab_widget_light);
         } else {

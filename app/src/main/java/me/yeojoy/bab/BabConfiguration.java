@@ -56,7 +56,7 @@ public class BabConfiguration extends ActionBarActivity implements View.OnClickL
                 PreferenceUtil.getInstance(mContext)
                         .putBoolean(PreferenceUtil.KEY_HAS_LIGH_BACKGROUND,
                                 isChecked);
-                BabApplication.hasLightBackground = isChecked;
+                BabApplication.mHasLightBackground = isChecked;
             }
         });
                 
