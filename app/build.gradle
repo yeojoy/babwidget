@@ -13,7 +13,7 @@ android {
 
         }
     }
-    
+
     defaultConfig {
         applicationId "me.yeojoy.bab"
         minSdkVersion 14
@@ -32,7 +32,7 @@ android {
             }
         }
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
@@ -40,10 +40,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+
+//        androidTest.setRoot("src/androidTest")
+//        androidTest.java.srcDirs = ['src/androidTest/java']
+
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.afollestad:material-dialogs:0.6.0'
 }

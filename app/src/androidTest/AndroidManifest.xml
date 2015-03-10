@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="me.yeojoy.bab">
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation
+        android:name="android.test.InstrumentationCoreTestRunner"
+        android:targetPackage="me.yeojoy.bab" />
+
+</manifest>
