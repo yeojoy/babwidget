@@ -14,12 +14,16 @@ public class MainActivityTests
 
     private static final String TAG = MainActivityTests.class.getSimpleName();
 
-//    public MainActivityTests(Class<MainActivity> activityClass) {
-//        super(activityClass);
-//    }
+    public MainActivity activity;
 
     public MainActivityTests() {
-        super("me.yeojoy.bab", MainActivity.class);
+        super(MainActivity.class);
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        activity = getActivity();
     }
 
     public void testMenuData() {
@@ -37,7 +41,7 @@ public class MainActivityTests
             }
         });
 
-        manager.updateMenu(getActivity(), true);
+        manager.updateMenu(activity, true);
         Log.d(TAG, "testMenuData(), end");
     }
 }
